@@ -1,0 +1,189 @@
+<div id="app" class="tlid-source-target main-header">
+    <div class="source-target-row">
+        <div class="tlid-input input">
+            <div class="tlid-language-bar ls-wrap">
+                <div class="sl-wrap">
+                    <div class="sl-sugg">
+                        <div class="ls-left-arrow"></div>
+                        <div class="sl-sugg-button-container">
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right jfk-button-checked" tabindex="0" aria-pressed="true" value="auto" style="user-select: none;">Detect language</div>
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-left jfk-button-collapse-right" tabindex="0" aria-pressed="false" value="en" id="sugg-item-en" style="user-select: none;">English</div>
+                            <!-- <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-left jfk-button-collapse-right" tabindex="0" aria-pressed="false" value="es" id="sugg-item-es" style="user-select: none;">Spanish</div>
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-left jfk-button-collapse-right" tabindex="0" aria-pressed="false" value="fr" id="sugg-item-fr" style="user-select: none;">French</div> -->
+                        </div>
+                        <div class="ls-right-arrow"></div>
+                    </div>
+
+                    <div class="sl-more tlid-open-source-language-list" aria-label="More" role="button" tabindex="0"></div>
+                </div>
+                <div class="sl-selector lang_list">
+                    <div class="lang-btn"><a class="ls-select new-ls-select sl-button tlid-open-small-source-language-list" aria-label="Detect language" tabindex="0">Detect language</a></div>
+                </div>
+                <div class="swap-wrap">
+                    <div class="swap jfk-button-narrow jfk-button-standard jfk-button jfk-button-disabled" aria-label="Swap languages (Ctrl+Shift+S)" role="button" data-tooltip="Swap languages (Ctrl+Shift+S)" data-tooltip-align="b,c" aria-disabled="true" style="user-select: none;">
+                        <div class="jfk-button-img"></div>
+                    </div>
+                </div>
+                <div class="tl-wrap">
+                    <div class="tl-sugg">
+                        <div class="ls-left-arrow"></div>
+                        <div class="sl-sugg-button-container">
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right jfk-button-checked" tabindex="0" aria-pressed="true" value="en" id="sugg-item-en" style="user-select: none;">English</div>
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-left jfk-button-collapse-right" tabindex="0" aria-pressed="false" value="es" id="sugg-item-es" style="user-select: none;">Spanish</div>
+                            <div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-left jfk-button-collapse-right" tabindex="0" aria-pressed="false" value="ar" id="sugg-item-ar" style="user-select: none;">Arabic</div>
+                        </div>
+                        <div class="ls-right-arrow"></div>
+                    </div>
+                    <div class="sugg-fade"></div>
+                    <div class="tl-more tlid-open-target-language-list" aria-label="More" role="button" tabindex="0"></div>
+                </div>
+                <div class="tl-selector lang_list">
+                    <div class="lang-btn"><a class="ls-select new-ls-select tl-button tlid-open-small-target-language-list" aria-label="English" tabindex="0">English</a></div>
+                </div>
+            </div>
+            <div class="source-wrap">
+                <div class="input-full-height-wrapper tlid-input-full-height-wrapper">
+                    <div class="source-input">
+                        <div id="input-wrap" class="tlid-input-area input-area less-padding">
+                            <div class="gt-hl-layer" dir="" style="box-sizing: content-box; left: 0px; top: 0px;"></div>
+                            <textarea id="source" v-model="sourceText" @input="translate();translate2()" class="orig tlid-source-text-input goog-textarea" rows="1" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" style="overflow: auto hidden; box-sizing: border-box; height: 70px; padding-bottom: 18px;"></textarea>
+                            <div class="text-dummy"></div>
+                            <div id="gt-src-is" style="display: none; user-select: none; direction: ltr; text-align: left;" class="gt-is-mobile gt-is" role="menu">
+                                <div id="gt-src-is-list" class="gt-is-ctr" style="user-select: none;"></div>
+                            </div>
+                        </div>
+                        <div class="source-header">
+                            <div class="clear-wrap">
+                                <div class="clear jfk-button-flat tlid-clear-source-text jfk-button" aria-label="Clear text" data-tooltip="Clear text" role="button" aria-hidden="true" data-tooltip-align="t,c" style="user-select: none; display: none;">
+                                    <div class="jfk-button-img"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tlid-source-transliteration-container source-transliteration-container transliteration-container">
+                            <div class="tlid-transliteration-content transliteration-content full"></div>
+                            <div class="tlid-show-more-link truncate-link" style="display:none">Show more</div>
+                            <div class="tlid-show-less-link truncate-link" style="display:none">Show less</div>
+                        </div>
+                        <div id="spelling-correction" class="tlid-spelling-correction spelling-correction" style="display: none;"></div>
+                        <div class="source-footer-wrap source-or-target-footer">
+                            <div class="source-input-tools" id="gt-input-tool">
+                                <div id="itamenu"><span class="ita-kd-inputtools-div"><div class="goog-container goog-container-vertical" tabindex="-1" style="user-select: none;"><a class="ita-kd-icon-button ita-kd-inputtool-icon ita-kd-small ita-kd-single" tabindex="0" style="user-select: none;" data-tooltip="Turn on Handwriting" aria-label="Turn on Handwriting" data-tooltip-align="t,c"><span class="ita-kd-img ita-icon-1 ita-kd-icon ita-kd-icon-span" style="user-select: none;"></span></a>
+                                </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="character-count tlid-character-count">
+                            <div class="cc-ctr normal">0/5000</div>
+                            <div class="cc-msg" style="display: none;"></div>
+                        </div>
+                        <div class="source-footer">
+                            <div class="speech-wrap source-or-target-footer-button left-positioned"><span class="speech-border"></span><span class="speech-border speech-background"></span>
+                                <div id="gt-speech" class="speech-button goog-toolbar-button goog-toolbar-button-disabled" aria-label="Choose a specific language to enable voice input" data-tooltip-align="t,c" aria-pressed="false" role="button" aria-disabled="true" data-tooltip="Choose a specific language to enable voice input" style="user-select: none;"><span class="jfk-button-img"></span>
+                                    <div class="jfk-bubble" role="alertdialog" aria-describedby="bubble-4" style="display: none;">
+                                        <div class="jfk-bubble-content-id" id="bubble-4">
+
+                                        </div>
+                                        <div class="jfk-bubble-arrow-id jfk-bubble-arrow">
+                                            <div class="jfk-bubble-arrowimplbefore"></div>
+                                            <div class="jfk-bubble-arrowimplafter"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="src-tts left-positioned ttsbutton jfk-button-flat source-or-target-footer-button jfk-button jfk-button-disabled" aria-label="Listen" data-tooltip="Voice output isn't available for " aria-pressed="false" role="button" data-tooltip-align="t,c" aria-hidden="true" aria-disabled="true" style="user-select: none; display: none;">
+                                <div class="jfk-button-img"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tlid-results-container results-container empty">
+        <div class="error-placeholder placeholder"><span class="tlid-result-error"></span><span class="tlid-result-container-error-button translation-error-button">Try again</span></div><span class="empty-placeholder placeholder" v-model="firstTargetResult">{{firstTargetResult}}</span><span class="translating-placeholder placeholder">Translating...</span>
+        <div class="gendered-translations-header">Translations are gender-specific. <a class="gendered-translations-learn-more" href="https://support.google.com/translate?p=gendered_translations&amp;hl=en" target="_blank">Learn more</a></div>
+    </div>
+    <div class="tlid-results-container results-container empty">
+        <div class="error-placeholder placeholder"><span class="tlid-result-error"></span><span class="tlid-result-container-error-button translation-error-button">Try again</span></div><span class="empty-placeholder placeholder" v-model="secondTargetResult">{{secondTargetResult}}</span><span class="translating-placeholder placeholder">Translating...</span>
+        <div class="gendered-translations-header">Translations are gender-specific. <a class="gendered-translations-learn-more" href="https://support.google.com/translate?p=gendered_translations&amp;hl=en" target="_blank">Learn more</a></div>
+    </div>
+</div>
+
+</div>
+
+
+
+<!-- <div id="app" >
+
+  <textarea rows="4" cols="50" @input="translate();translate2();" v-model="sourceText">
+
+  </textarea>
+  <br>
+  <textarea rows="4" cols="50" v-model="firstTargetResult">
+
+  </textarea>
+  <textarea rows="4" cols="50" v-model="secondTargetResult">
+
+  </textarea>
+</div> -->
+<link rel="stylesheet" type="text/css" href="translate.css">
+<style src="translate.css"></style>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  var app = new Vue({
+  el: '#app',
+  data: {
+    sourceText: '',
+    sourceLang: 'auto',
+    firstTargetLang: 'iw',
+    firstTargetResult: 'Translation',
+    secondTargetLang: 'ru',
+    secondTargetResult: 'Translation',
+
+
+  },
+  methods:{
+    translate : function(){
+
+      if (this.sourceText.length < 3){return;}
+        console.log("sourceText",this.sourceText);
+        let url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
+             + this.sourceLang + "&tl=" + this.firstTargetLang + "&dt=t&q=" + encodeURI(this.sourceText);
+
+        let response = JSON.parse(this.httpGet(url));
+
+        this.firstTargetResult =  response[0][0][0];
+      
+    },
+    translate2 : function(){
+      if (this.sourceText.length < 3){return;}
+    //  console.log("sourceText",this.sourceText);
+        let url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
+             + this.sourceLang + "&tl=" + this.secondTargetLang + "&dt=t&q=" + encodeURI(this.sourceText);
+        let response = JSON.parse(this.httpGet(url));
+
+        this.secondTargetResult =  response[0][0][0];
+    },
+     httpGet: function(theUrl)
+   {
+
+       let xmlHttp = new XMLHttpRequest();
+       xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+       xmlHttp.send( null );
+
+       return xmlHttp.responseText;
+   }
+
+  }
+})
+
+</script>
+
+<style>
+  textarea {
+    resize: none;
+  }
+
+  </style>
