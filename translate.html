@@ -1,21 +1,21 @@
 <div id="app">
 
-    <textarea placeholder="Enter to translate" rows="4" cols="50" @input="translateFirstLanguage();translateSecondLanguage();"
-        v-model="sourceText" ></textarea>
+    <textarea placeholder="Enter to translate" rows="4" cols="50"
+        @input="translateFirstLanguage();translateSecondLanguage();" v-model="sourceText"></textarea>
 
 
     <div style="display: flex">
         <select v-model="firstTargetLang">
-                <option disabled value="">Please select one</option>
-                <option v-for="(item,lng) in languages" :value="item">{{lng}}</option>
+            <option disabled value="">Please select one</option>
+            <option v-for="(item,lng) in languages" :value="item">{{lng}}</option>
         </select>
         <textarea rows="4" cols="50" v-model="firstTargetResult"></textarea>
     </div>
 
     <div style="display: flex">
-        <select v-model="secondTargetLang"  @change="translateSecondLanguage()">
-             <option disabled value="">Please select one</option>
-                <option v-for="(item,lng) in languages" :value="item">{{lng}}</option>
+        <select v-model="secondTargetLang" @change="translateSecondLanguage()">
+            <option disabled value="">Please select one</option>
+            <option v-for="(item,lng) in languages" :value="item">{{lng}}</option>
         </select>
         <textarea rows="4" cols="50" v-model="secondTargetResult"></textarea>
     </div>
@@ -23,7 +23,8 @@
     <style src="translate.css"></style>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
         var app = new Vue({
             el: '#app',
@@ -163,14 +164,31 @@
                     let url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
                         + this.sourceLang + "&tl=" + this.secondTargetLang + "&dt=t&q=" + encodeURI(this.sourceText);
                     let response = JSON.parse(this.httpGet(url));
-
-                    this.secondTargetResult = response[0][0][0];
+                    console.log("response",response);
+                  
                 },
-                httpGet: function (theUrl) {
+                httpGet: function (theUrl) { 
                     let xmlHttp = new XMLHttpRequest();
                     xmlHttp.open("GET", theUrl, false); // false for synchronous request
                     xmlHttp.send(null);
                     return xmlHttp.responseText;
+                },
+                httpGetAsync: function (theUrl) {
+                    var _this = this;
+                    console.log(theUrl);
+                    axios.get(theUrl)
+                        .then(function (response) {
+                            // handle success
+                            console.log("response.data",response.data[0][0][0]);
+                            this.secondTargetResult = response.data[0][0][0];
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            // always executed
+                        });
                 }
 
             }
